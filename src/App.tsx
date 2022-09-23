@@ -115,7 +115,7 @@ function App() {
             layout={{
               width: 600,
               height: 400,
-              title: 'Response Times (ms)',
+              title: 'Response Time Distribution',
               xaxis: {title: "Response Time (ms)"},
               yaxis: {title: "Total Responses"},
             }}
