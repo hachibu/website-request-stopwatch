@@ -15,19 +15,23 @@ interface Stats {
   quantiles: Record<number, number>;
 }
 
+function newStats(): Stats {
+  return {
+    runs: 0,
+    mean: 0,
+    min: 0,
+    max: 0,
+    quantiles: []
+  }
+}
+
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get('url')
   const [url, setUrl] = useState<string>(urlParam ?? "")
   const [runs, setRuns] = useState<number>(100)
   const [responseTimes, setResponseTimes] = useState<number[]>([])
-  const [stats, setStats] = useState<Stats>({
-    runs: 0,
-    mean: 0,
-    min: 0,
-    max: 0,
-    quantiles: []
-  })
+  const [stats, setStats] = useState<Stats>(newStats())
   const [progress, setProgress] = useState<number>(0)
 
   async function onClick(event: MouseEvent<HTMLButtonElement>) {
@@ -36,6 +40,7 @@ function App() {
 
     setResponseTimes(() => [])
     setProgress(() => 0)
+    setStats(() => newStats())
 
     window.history.replaceState(
       {},
