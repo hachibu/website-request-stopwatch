@@ -63,23 +63,22 @@ function App() {
       data.push(timeMs)
       setResponseTimes((prevState) => [...prevState, timeMs])
       setProgress(() => ((i+1) / runs) * 100)
-    }
-
-    setStats(() => {
-      return {
-        runs,
-        mean: ss.mean(data),
-        min: ss.min(data),
-        max: ss.max(data),
-        quantiles: {
-          0.50: ss.quantile(data, 0.5),
-          0.75: ss.quantile(data, 0.75),
-          0.90: ss.quantile(data, 0.9),
-          0.95: ss.quantile(data, 0.95),
-          0.99: ss.quantile(data, 0.99),
+      setStats(() => {
+        return {
+          runs: i+1,
+          mean: ss.mean(data),
+          min: ss.min(data),
+          max: ss.max(data),
+          quantiles: {
+            0.50: ss.quantile(data, 0.5),
+            0.75: ss.quantile(data, 0.75),
+            0.90: ss.quantile(data, 0.9),
+            0.95: ss.quantile(data, 0.95),
+            0.99: ss.quantile(data, 0.99),
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   function urlInputOnChange(event: ChangeEvent<HTMLInputElement>) {
