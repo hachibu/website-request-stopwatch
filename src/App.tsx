@@ -35,6 +35,11 @@ function App() {
   const [progress, setProgress] = useState<number>(0)
 
   async function onClick(event: MouseEvent<HTMLButtonElement>) {
+    if (!url.startsWith("https://")) {
+      alert("URL must start with https://")
+      return
+    }
+
     const fetchUrl = IS_DEV ? `${JUST_CORS_URL}${url}` : url
     const data: number[] = []
 
