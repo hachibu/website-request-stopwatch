@@ -1,9 +1,9 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, ChangeEvent } from 'react';
 import * as ss from 'simple-statistics'
 import Plot from 'react-plotly.js';
 import './App.css';
 
-const IS_DEV = false
+const IS_DEV = true
 const JUST_CORS_URL = "https://justcors.com/tl_64713a4/"
 const PRECISION = 2
 
@@ -17,7 +17,8 @@ interface Stats {
 
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
-  const [url, setUrl] = useState<string>("https://" + urlSearchParams.get('url') ?? "")
+  const urlParam = urlSearchParams.get('url')
+  const [url, setUrl] = useState<string>(urlParam ?? "")
   const [runs, setRuns] = useState<number>(100)
   const [responseTimes, setResponseTimes] = useState<number[]>([])
   const [stats, setStats] = useState<Stats>({
@@ -35,6 +36,12 @@ function App() {
 
     setResponseTimes(() => [])
     setProgress(() => 0)
+
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.origin}${window.location.pathname}?url=${encodeURI(url)}`,
+    );
 
     for (let i = 0; i < runs; i++) {
       const startTimeMs = performance.now()
@@ -63,13 +70,17 @@ function App() {
     })
   }
 
+  function urlInputOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setUrl(() => event.target.value)
+  }
+
   return (
-    <div className="App mt-5">
-      <div className="p-3 mb-5 border">
+    <div className="App mt-3">
+      <div className="p-3 mb-3 border">
         <div className="row mb-3">
           <label className="col-sm-4 col-form-label">URL</label>
           <div className="col-sm-8">
-            <input className="form-control" type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Enter URL..."></input>
+            <input className="form-control" type="text" value={url} onChange={urlInputOnChange} placeholder="Enter URL..."></input>
           </div>
         </div>
         <div className="row mb-3">
@@ -88,7 +99,7 @@ function App() {
       </div>
      
       <div>
-        <div className="border">
+        <div className="border mb-3">
           <Plot
             data={[
               {
