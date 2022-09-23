@@ -139,6 +139,26 @@ function App() {
             </tr>
           </tbody>
         </table>
+        <table className="table border">
+          <thead>
+            <tr>
+              <th>Percentile</th>
+              <th>Response Time (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(stats?.quantiles).map(([k, v], i) => (
+              <tr key={i}>
+                <td>
+                  {k}
+                </td>
+                <td>
+                  {v.toFixed(PRECISION)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <table className="table table-striped border">
         <thead>
