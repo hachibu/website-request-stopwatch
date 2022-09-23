@@ -3,7 +3,7 @@ import * as ss from 'simple-statistics'
 import Plot from 'react-plotly.js';
 import './App.css';
 
-const IS_DEV = true
+const IS_DEV = false
 const JUST_CORS_URL = "https://justcors.com/tl_64713a4/"
 const PRECISION = 2
 
