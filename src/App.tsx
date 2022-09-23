@@ -3,8 +3,6 @@ import * as ss from 'simple-statistics'
 import Plot from 'react-plotly.js';
 import './App.css';
 
-const IS_DEV = false
-const JUST_CORS_URL = "https://justcors.com/tl_64713a4/"
 const PRECISION = 2
 
 interface Stats {
@@ -40,7 +38,6 @@ function App() {
       return
     }
 
-    const fetchUrl = IS_DEV ? `${JUST_CORS_URL}${url}` : url
     const data: number[] = []
 
     setResponseTimes(() => [])
@@ -60,7 +57,7 @@ function App() {
 
     for (let i = 0; i < runs; i++) {
       const startTimeMs = performance.now()
-      await fetch(fetchUrl, requestInit)
+      await fetch(url, requestInit)
       const stopTimeMs = performance.now()
       const timeMs = stopTimeMs - startTimeMs
       data.push(timeMs)
