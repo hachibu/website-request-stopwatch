@@ -55,7 +55,7 @@ function App() {
 
     for (let i = 0; i < runs; i++) {
       const startTimeMs = performance.now()
-      const response = await fetch(fetchUrl, { cache: "no-store" })
+      const response = await fetch(fetchUrl, { mode: "no-cors", cache: "no-store" })
       if (!response.ok) {
         alert(`Error fetching ${fetchUrl}`)
         console.error(response)
