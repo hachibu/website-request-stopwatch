@@ -29,7 +29,7 @@ function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get('url')
   const [url, setUrl] = useState<string>(urlParam ?? "")
-  const [runs, setRuns] = useState<number>(100)
+  const [runs, setRuns] = useState<number>(10)
   const [responseTimes, setResponseTimes] = useState<number[]>([])
   const [stats, setStats] = useState<Stats>(newStats())
   const [progress, setProgress] = useState<number>(0)
@@ -53,14 +53,14 @@ function App() {
       `${window.location.origin}${window.location.pathname}?url=${encodeURI(url)}`,
     );
 
+    const requestInit: RequestInit = {
+      mode: "no-cors",
+      cache: "no-store",
+    }
+
     for (let i = 0; i < runs; i++) {
       const startTimeMs = performance.now()
-      const response = await fetch(fetchUrl, { mode: "no-cors", cache: "no-store" })
-      if (!response.ok) {
-        alert(`Error fetching ${fetchUrl}`)
-        console.error(response)
-        return
-      }
+      await fetch(fetchUrl, requestInit)
       const stopTimeMs = performance.now()
       const timeMs = stopTimeMs - startTimeMs
       data.push(timeMs)
