@@ -8,7 +8,7 @@ function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get("url");
   const [url, setUrl] = useState<string>(urlParam ?? "");
-  const [sampleSize, setSampleSize] = useState<number>(10);
+  const [sampleSize, setSampleSize] = useState<number>(100);
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
   const [stats, setStats] = useState<Stats>(newStats());
   const [progress, setProgress] = useState<number>(0);
@@ -119,9 +119,7 @@ function App() {
             value={sampleSize}
           >
             <option value="10">10</option>
-            <option value="50">50</option>
             <option value="100">100</option>
-            <option value="500">500</option>
             <option value="1000">1000</option>
           </select>
         </div>
@@ -130,15 +128,8 @@ function App() {
           onClick={onClick}
           disabled={disabled}
         >
-          Start
+          {disabled ? `${progress.toFixed(0)}% complete` : "Start"}
         </button>
-        {disabled ? (
-          <progress
-            className="w-100 mt-3"
-            value={progress}
-            max="100"
-          ></progress>
-        ) : null}
       </div>
 
       <div className="border mb-3 bg-white">
