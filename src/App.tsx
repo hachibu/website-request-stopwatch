@@ -86,7 +86,7 @@ function App() {
   }
 
   return (
-    <div className="App mt-3">
+    <div className="mt-3">
       <div className="p-3 mb-3 border">
         <div className="row mb-3">
           <label className="col-sm-4 col-form-label">URL</label>
@@ -94,6 +94,7 @@ function App() {
             <input className="form-control" type="text" value={url} onChange={urlInputOnChange} placeholder="Enter URL..."></input>
           </div>
         </div>
+
         <div className="row mb-3">
           <label className="col-sm-4 col-form-label">Sample Size</label>
           <div className="col-sm-8">
@@ -101,73 +102,71 @@ function App() {
           </div>
         </div>
 
-        <button className="form-control btn btn-primary" onClick={onClick}>Start</button>
+        <button className="form-control btn btn-primary mb-3" onClick={onClick}>Start</button>
+
+        <progress className="progress w-100" value={progress} max="100"></progress>
       </div>
 
-      <div className="p-3 mb-3 border">
-        <label className="col-sm-4 col-form-label">Progress</label>
-        <progress value={progress} max="100"></progress>
+      <div className="border overflow-hidden mb-3">
+        <Plot
+          className='w-100'
+          data={[
+            {
+              x: responseTimes,
+              type: 'histogram',
+            }
+          ]}
+          useResizeHandler={true}
+          layout={{
+            title: 'Response Time Distribution',
+            xaxis: { title: "Response Time (ms)" },
+            yaxis: { title: "Total Responses" },
+          }}
+        ></Plot>
       </div>
-     
-      <div>
-        <div className="border mb-3">
-          <Plot
-            data={[
-              {
-                x: responseTimes,
-                type: 'histogram',
-              }
-            ]}
-            layout={{
-              width: 600,
-              height: 400,
-              title: 'Response Time Distribution',
-              xaxis: {title: "Response Time (ms)"},
-              yaxis: {title: "Total Responses"},
-            }}
-          ></Plot>
-        </div>
-        <table className="table border">
-          <thead>
-            <tr>
-              <th>Sample Size</th>
-              <th>Mean (ms)</th>
-              <th>Min (ms)</th>
-              <th>Max (ms)</th>
+
+      <table className="table table-bordered">
+        <thead className="bg-light">
+          <tr>
+            <th>Sample Size</th>
+            <th>Mean (ms)</th>
+            <th>Min (ms)</th>
+            <th>Max (ms)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{stats?.runs}</td>
+            <td>{stats?.mean.toFixed(PRECISION)}</td>
+            <td>{stats?.min.toFixed(PRECISION)}</td>
+            <td>{stats?.max.toFixed(PRECISION)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table className="table table-bordered">
+        <thead className="bg-light">
+          <tr>
+            <th>Percentile</th>
+            <th>Response Time (ms)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(stats?.quantiles).map(([k, v], i) => (
+            <tr key={i}>
+              <td>
+                {k}
+              </td>
+              <td>
+                {v.toFixed(PRECISION)}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{stats?.runs}</td>
-              <td>{stats?.mean.toFixed(PRECISION)}</td>
-              <td>{stats?.min.toFixed(PRECISION)}</td>
-              <td>{stats?.max.toFixed(PRECISION)}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table className="table border">
-          <thead>
-            <tr>
-              <th>Percentile</th>
-              <th>Response Time (ms)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats?.quantiles).map(([k, v], i) => (
-              <tr key={i}>
-                <td>
-                  {k}
-                </td>
-                <td>
-                  {v.toFixed(PRECISION)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <table className="table table-striped border">
-        <thead>
+          ))}
+        </tbody>
+      </table>
+
+      <table className="table table-bordered">
+        <thead className="bg-light">
           <tr>
             <th>Response Times (ms)</th>
           </tr>
