@@ -106,7 +106,6 @@ function App() {
     }
 
     setDisabled(() => false);
-    console.log(JSON.stringify(getPlot()));
   }
 
   const plot = getPlot();
