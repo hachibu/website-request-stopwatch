@@ -8,7 +8,7 @@ function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get("url");
   const [url, setUrl] = useState<string>(urlParam ?? "");
-  const [sampleSize, setSampleSize] = useState<number>(100);
+  const [sampleSize, setSampleSize] = useState<number>(10);
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
   const [stats, setStats] = useState<Stats>(newStats());
   const [progress, setProgress] = useState<number>(0);
@@ -31,7 +31,7 @@ function App() {
     setUrl(() => newUrl);
   }
 
-  function sampleSizeOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function sampleSizeOnChange(event: ChangeEvent<HTMLSelectElement>) {
     setSampleSize(() => +event.target.value);
   }
 
@@ -52,9 +52,9 @@ function App() {
 
     if (url === "") {
       return alert("Form validation error: URL must not be empty");
-    } else if (sampleSize > 10000) {
+    } else if (sampleSize > 1000) {
       return alert(
-        "Form validation error: Sample size must not be greater than 10,000"
+        "Form validation error: Sample size must not be greater than 1,000"
       );
     }
 
@@ -107,23 +107,22 @@ function App() {
               type="text"
               value={url}
               onChange={urlOnChange}
-              placeholder="Enter a URL..."
+              placeholder="Type a URL..."
             ></input>
           </div>
         </div>
-        <div className="row mb-3">
-          <label className="col-sm-6 col-form-label">Sample Size</label>
-          <div className="col-sm-6">
-            <input
-              className="form-control"
-              type="number"
-              value={sampleSize}
-              onChange={sampleSizeOnChange}
-              min={1}
-            ></input>
-          </div>
+        <div className="input-group mb-3">
+          <label className="input-group-text">Sample Size</label>
+          <select
+            className="form-select"
+            onChange={sampleSizeOnChange}
+            value={sampleSize}
+          >
+            <option value="10">10</option>
+            <option value="100">100</option>
+            <option value="1000">1000</option>
+          </select>
         </div>
-
         <button
           className="form-control btn btn-success mb-3"
           onClick={onClick}
