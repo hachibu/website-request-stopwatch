@@ -89,7 +89,7 @@ function App() {
         title: "Response Time (ms)",
       },
       yaxis: {
-        title: "Total Responses",
+        title: "# of Requests",
       },
     },
     useResizeHandler: true,
@@ -97,7 +97,7 @@ function App() {
 
   return (
     <div className="col-12 col-md-8">
-      <h1 className="display-6 text-center">Website Response Timer ⏱️️</h1>
+      <h1 className="display-6 text-center">Website Request Timer ⏱️️</h1>
       <div className="p-3 mb-3 border bg-white">
         <div className="row mb-3">
           <div className="col-sm-4 input-group">
