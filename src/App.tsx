@@ -20,7 +20,14 @@ function App() {
   }
 
   function urlOnChange(event: ChangeEvent<HTMLInputElement>) {
-    setUrl(() => event.target.value)
+    let newUrl = event.target.value
+    let prefix = "https://"
+
+    if (newUrl.startsWith(prefix)) {
+      newUrl = newUrl.replace(prefix, "")
+    }
+
+    setUrl(() => newUrl)
   }
 
   function sampleSizeOnChange(event: ChangeEvent<HTMLInputElement>) {
