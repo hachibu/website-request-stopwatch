@@ -97,7 +97,7 @@ function App() {
 
   return (
     <div className="col-12 col-md-8">
-      <h1 className="display-6">Website Response Timer ⏱️️</h1>
+      <h1 className="display-6 text-center">Website Response Timer ⏱️️</h1>
       <div className="p-3 mb-3 border bg-white">
         <div className="row mb-3">
           <div className="col-sm-4 input-group">
@@ -107,7 +107,7 @@ function App() {
               type="text"
               value={url}
               onChange={urlOnChange}
-              placeholder="Enter URL..."
+              placeholder="Enter a URL..."
             ></input>
           </div>
         </div>
