@@ -12,6 +12,7 @@ function App() {
   const [responseTimes, setResponseTimes] = useState<number[]>([])
   const [stats, setStats] = useState<Stats>(newStats())
   const [progress, setProgress] = useState<number>(0)
+  const [disabled, setDisabled] = useState<boolean>(false)
 
   function resetState() {
     setResponseTimes(() => [])
@@ -43,26 +44,40 @@ function App() {
 
   async function onClick(event: MouseEvent<HTMLButtonElement>) {
     const data: number[] = []
+    const requestUrl = `https://${url}`
     const requestInit: RequestInit = {
       mode: "no-cors",
       cache: "no-store",
     }
 
+    if (url === "") {
+      return alert("Form validation error: URL must not be empty")
+    } else if (sampleSize > 10000) {
+      return alert("Form validation error: Sample size must not be greater than 10,000")
+    }
+
+    setDisabled(() => true)
     resetState()
     updateUrlSearch()
 
     for (let i = 0; i < sampleSize; i++) {
-      const startTimeMs = performance.now()
-      await fetch(`https://${url}`, requestInit)
-      const stopTimeMs = performance.now()
-      const timeMs = stopTimeMs - startTimeMs
+      const start = performance.now()
+      try {
+        await fetch(requestUrl, requestInit)
+      } catch(e) {
+        setDisabled(() => false)
+        return alert(`Fetch error: Failed to fetch "${requestUrl}"`)
+      }
+      const stop = performance.now()
+      const delta = stop - start
 
-      data.push(timeMs)
-
-      setResponseTimes((prevState) => [...prevState, timeMs])
+      data.push(delta)
+      setResponseTimes((prevState) => [...prevState, delta])
       setProgress(() => (data.length / sampleSize) * 100)
       setStats(() => calculateStats(data))
     }
+
+    setDisabled(() => false)
   }
 
   const plot = {
@@ -94,7 +109,9 @@ function App() {
             <input className="form-control" type="number" value={sampleSize} onChange={sampleSizeOnChange} min={1}></input>
           </div>
         </div>
-        <button className="form-control btn btn-primary mb-3" onClick={onClick}>Start</button>
+        <button className="form-control btn btn-success mb-3" onClick={onClick} disabled={disabled}>
+          Start
+        </button>
         <progress className="w-100" value={progress} max="100"></progress>
       </div>
 
