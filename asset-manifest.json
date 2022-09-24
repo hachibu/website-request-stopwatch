@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/website-response-timer/static/js/main.23da3f09.js",
+    "main.js": "/website-response-timer/static/js/main.3a58bdd5.js",
     "index.html": "/website-response-timer/index.html",
-    "main.23da3f09.js.map": "/website-response-timer/static/js/main.23da3f09.js.map"
+    "main.3a58bdd5.js.map": "/website-response-timer/static/js/main.3a58bdd5.js.map"
   },
   "entrypoints": [
-    "static/js/main.23da3f09.js"
+    "static/js/main.3a58bdd5.js"
   ]
 }
