@@ -14,7 +14,13 @@ export function newStats(): Stats {
     mean: 0,
     min: 0,
     max: 0,
-    percentiles: [],
+    percentiles: {
+      0.5: 0,
+      0.75: 0,
+      0.9: 0,
+      0.95: 0,
+      0.99: 0,
+    },
   };
 }
 
