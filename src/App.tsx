@@ -95,7 +95,7 @@ function App() {
           </div>
         </div>
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Total Runs</label>
+          <label className="col-sm-4 col-form-label">Sample Size</label>
           <div className="col-sm-8">
             <input className="form-control" type="number" value={runs} onChange={(e) => setRuns(+e.target.value)} min={1}></input>
           </div>
@@ -130,7 +130,7 @@ function App() {
         <table className="table border">
           <thead>
             <tr>
-              <th>Total Runs</th>
+              <th>Sample Size</th>
               <th>Mean (ms)</th>
               <th>Min (ms)</th>
               <th>Max (ms)</th>
