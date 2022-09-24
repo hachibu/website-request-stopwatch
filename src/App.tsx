@@ -13,7 +13,7 @@ interface MyPlot {
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get("url");
-  const [url, setUrl] = useState<string>(urlParam ?? "google.com");
+  const [url, setUrl] = useState<string>(urlParam ?? "wikipedia.org");
   const [sampleSize, setSampleSize] = useState<number>(100);
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
   const [stats, setStats] = useState<Stats>(newStats());
