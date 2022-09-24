@@ -3,6 +3,7 @@ import * as ss from "simple-statistics";
 export interface Stats {
   size: number;
   mean: number;
+  median: number;
   stdev: number;
   min: number;
   max: number;
@@ -13,6 +14,7 @@ export function newStats(): Stats {
   return {
     size: 0,
     mean: 0,
+    median: 0,
     stdev: 0,
     min: 0,
     max: 0,
@@ -29,6 +31,7 @@ export function calculateStats(data: number[]): Stats {
   return {
     size: data.length,
     mean: ss.mean(data),
+    median: ss.median(data),
     stdev: ss.standardDeviation(data),
     min: ss.min(data),
     max: ss.max(data),
