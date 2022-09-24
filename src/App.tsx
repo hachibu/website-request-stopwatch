@@ -35,11 +35,6 @@ function App() {
   }
 
   async function onClick(event: MouseEvent<HTMLButtonElement>) {
-    if (!url.startsWith("https://")) {
-      alert("URL must start with https://")
-      return
-    }
-
     const data: number[] = []
     const requestInit: RequestInit = {
       mode: "no-cors",
@@ -51,7 +46,7 @@ function App() {
 
     for (let i = 0; i < sampleSize; i++) {
       const startTimeMs = performance.now()
-      await fetch(url, requestInit)
+      await fetch(`https://${url}`, requestInit)
       const stopTimeMs = performance.now()
       const timeMs = stopTimeMs - startTimeMs
 
@@ -78,16 +73,17 @@ function App() {
 
   return (
     <div className="col-12 col-md-8">
+      <h1 className="display-6">Website Response Timer ⏱️️</h1>
       <div className="p-3 mb-3 border bg-white">
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">URL</label>
-          <div className="col-sm-8">
+          <div className="col-sm-4 input-group">
+            <span className="input-group-text">https://</span>
             <input className="form-control" type="text" value={url} onChange={urlOnChange} placeholder="Enter URL..."></input>
           </div>
         </div>
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Sample Size</label>
-          <div className="col-sm-8">
+          <label className="col-sm-6 col-form-label">Sample Size</label>
+          <div className="col-sm-6">
             <input className="form-control" type="number" value={sampleSize} onChange={sampleSizeOnChange} min={1}></input>
           </div>
         </div>
