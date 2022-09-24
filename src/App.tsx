@@ -87,7 +87,7 @@ function App() {
 
   return (
     <div className="mt-3">
-      <div className="p-3 mb-3 border">
+      <div className="p-3 mb-3 border bg-white">
         <div className="row mb-3">
           <label className="col-sm-4 col-form-label">URL</label>
           <div className="col-sm-8">
@@ -107,7 +107,7 @@ function App() {
         <progress className="progress w-100" value={progress} max="100"></progress>
       </div>
 
-      <div className="border overflow-hidden mb-3">
+      <div className="border overflow-hidden mb-3 bg-white">
         <Plot
           className='w-100'
           data={[
@@ -125,8 +125,8 @@ function App() {
         ></Plot>
       </div>
 
-      <table className="table table-bordered">
-        <thead className="bg-light">
+      <table className="table table-bordered bg-white">
+        <thead>
           <tr>
             <th>Sample Size</th>
             <th>Mean (ms)</th>
@@ -144,8 +144,8 @@ function App() {
         </tbody>
       </table>
 
-      <table className="table table-bordered">
-        <thead className="bg-light">
+      <table className="table table-bordered bg-white">
+        <thead>
           <tr>
             <th>Percentile</th>
             <th>Response Time (ms)</th>
@@ -165,8 +165,8 @@ function App() {
         </tbody>
       </table>
 
-      <table className="table table-bordered">
-        <thead className="bg-light">
+      <table className="table table-bordered bg-white">
+        <thead>
           <tr>
             <th>Response Times (ms)</th>
           </tr>
