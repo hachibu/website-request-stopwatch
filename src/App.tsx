@@ -1,8 +1,14 @@
 import React, { useState, MouseEvent, ChangeEvent } from "react";
+import { Data, Layout } from "plotly.js";
 import Plot from "react-plotly.js";
 import { Stats, newStats, calculateStats } from "./Stats";
 
 const PRECISION = 2;
+
+interface MyPlot {
+  data: Data[];
+  layout: Partial<Layout>;
+}
 
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
@@ -13,6 +19,26 @@ function App() {
   const [stats, setStats] = useState<Stats>(newStats());
   const [progress, setProgress] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  function getPlot(): MyPlot {
+    return {
+      data: [
+        {
+          x: responseTimes,
+          type: "histogram",
+        },
+      ],
+      layout: {
+        title: `Response Time Distribution (${url})`,
+        xaxis: {
+          title: "Response Time (ms)",
+        },
+        yaxis: {
+          title: "# of Requests",
+        },
+      },
+    };
+  }
 
   function resetState() {
     setResponseTimes(() => []);
@@ -80,20 +106,10 @@ function App() {
     }
 
     setDisabled(() => false);
+    console.log(JSON.stringify(getPlot()));
   }
 
-  const plot = {
-    layout: {
-      title: "Response Time Distribution",
-      xaxis: {
-        title: "Response Time (ms)",
-      },
-      yaxis: {
-        title: "# of Requests",
-      },
-    },
-    useResizeHandler: true,
-  };
+  const plot = getPlot();
 
   return (
     <div className="col-12 col-md-8">
@@ -135,14 +151,9 @@ function App() {
       <div className="border mb-3 bg-white">
         <Plot
           className="w-100"
-          data={[
-            {
-              x: responseTimes,
-              type: "histogram",
-            },
-          ]}
+          data={plot.data}
           layout={plot.layout}
-          useResizeHandler={plot.useResizeHandler}
+          useResizeHandler={true}
         ></Plot>
       </div>
 
