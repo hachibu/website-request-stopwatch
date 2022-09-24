@@ -151,6 +151,7 @@ function App() {
           <tr>
             <th>Sample Size</th>
             <th>Mean (ms)</th>
+            <th>Standard Deviation (ms)</th>
             <th>Min (ms)</th>
             <th>Max (ms)</th>
           </tr>
@@ -159,6 +160,7 @@ function App() {
           <tr>
             <td>{stats?.size}</td>
             <td>{stats?.mean.toFixed(PRECISION)}</td>
+            <td>{stats?.stdev.toFixed(PRECISION)}</td>
             <td>{stats?.min.toFixed(PRECISION)}</td>
             <td>{stats?.max.toFixed(PRECISION)}</td>
           </tr>
