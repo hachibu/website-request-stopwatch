@@ -124,13 +124,19 @@ function App() {
           </select>
         </div>
         <button
-          className="form-control btn btn-success mb-3"
+          className="form-control btn btn-success"
           onClick={onClick}
           disabled={disabled}
         >
           Start
         </button>
-        <progress className="w-100" value={progress} max="100"></progress>
+        {disabled ? (
+          <progress
+            className="w-100 mt-3"
+            value={progress}
+            max="100"
+          ></progress>
+        ) : null}
       </div>
 
       <div className="border mb-3 bg-white">
