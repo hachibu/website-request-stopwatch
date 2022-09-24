@@ -7,7 +7,7 @@ const PRECISION = 2;
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get("url");
-  const [url, setUrl] = useState<string>(urlParam ?? "");
+  const [url, setUrl] = useState<string>(urlParam ?? "google.com");
   const [sampleSize, setSampleSize] = useState<number>(100);
   const [responseTimes, setResponseTimes] = useState<number[]>([]);
   const [stats, setStats] = useState<Stats>(newStats());
