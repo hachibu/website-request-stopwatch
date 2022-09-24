@@ -1,7 +1,6 @@
 import React, { useState, MouseEvent, ChangeEvent } from 'react';
 import * as ss from 'simple-statistics'
 import Plot from 'react-plotly.js';
-import './App.css';
 
 const PRECISION = 2
 
