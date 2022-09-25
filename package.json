@@ -1,6 +1,6 @@
 {
-  "name": "website-request-timer",
-  "homepage": "https://hachibu.github.io/website-request-timer",
+  "name": "website-request-stopwatch",
+  "homepage": "https://hachibu.github.io/website-request-stopwatch",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

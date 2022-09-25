@@ -1,3 +1,3 @@
-# Website Request Timer
+# Website Request Stopwatch
 
-Source code for https://hachibu.github.io/website-request-timer/
+The source code for https://hachibu.github.io/website-request-stopwatch.

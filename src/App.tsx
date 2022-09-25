@@ -112,7 +112,9 @@ function App() {
 
   return (
     <div className="col-12 col-md-8">
-      <h1 className="display-6 text-center">Website Request Timer ⏱️️</h1>
+      <h1 className="display-6 text-center mb-3">
+        Website Request Stopwatch ⏱️️
+      </h1>
       <div className="p-3 mb-3 border bg-white">
         <div className="row mb-3">
           <div className="col-sm-4 input-group">
@@ -133,9 +135,9 @@ function App() {
             onChange={sampleSizeOnChange}
             value={sampleSize}
           >
-            <option value="10">10</option>
-            <option value="100">100</option>
-            <option value="1000">1000</option>
+            <option value="10">10 Requests</option>
+            <option value="100">100 Requests</option>
+            <option value="1000">1000 Requests</option>
           </select>
         </div>
         <button
@@ -159,7 +161,7 @@ function App() {
       <table className="table table-bordered bg-white">
         <thead>
           <tr>
-            <th>Sample Size</th>
+            <th>Requests Completed</th>
             <th>Mean</th>
             <th>Median</th>
             <th>Std Dev</th>
