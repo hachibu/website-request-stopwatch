@@ -29,7 +29,7 @@ function App() {
         },
       ],
       layout: {
-        title: `Response Time Distribution (${url})`,
+        title: `Response Time Distribution<br>(${url})`,
         xaxis: {
           title: "Response Time (ms)",
         },
