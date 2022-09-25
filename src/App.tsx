@@ -143,7 +143,7 @@ function App() {
           onClick={onClick}
           disabled={disabled}
         >
-          {disabled ? `${progress.toFixed(0)}% complete` : "Start"}
+          {disabled ? `${progress.toFixed(PRECISION)}% complete` : "Start"}
         </button>
       </div>
 
