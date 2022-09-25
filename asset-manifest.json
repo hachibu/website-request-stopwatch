@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/website-request-timer/static/js/main.c2146c47.js",
+    "main.js": "/website-request-timer/static/js/main.6c3d4ee6.js",
     "index.html": "/website-request-timer/index.html",
-    "main.c2146c47.js.map": "/website-request-timer/static/js/main.c2146c47.js.map"
+    "main.6c3d4ee6.js.map": "/website-request-timer/static/js/main.6c3d4ee6.js.map"
   },
   "entrypoints": [
-    "static/js/main.c2146c47.js"
+    "static/js/main.6c3d4ee6.js"
   ]
 }
