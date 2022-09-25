@@ -156,15 +156,13 @@ function App() {
         ></Plot>
       </div>
 
-      <table className="table table-bordered table-striped bg-white">
+      <table className="table table-bordered bg-white">
         <thead>
           <tr>
             <th>Sample Size</th>
-            <th>Mean (ms)</th>
-            <th>Median (ms)</th>
-            <th>Std Dev (ms)</th>
-            <th>Min (ms)</th>
-            <th>Max (ms)</th>
+            <th>Mean</th>
+            <th>Median</th>
+            <th>Std Dev</th>
           </tr>
         </thead>
         <tbody>
@@ -173,33 +171,33 @@ function App() {
             <td>{stats?.mean.toFixed(PRECISION)}</td>
             <td>{stats?.median.toFixed(PRECISION)}</td>
             <td>{stats?.stdev.toFixed(PRECISION)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table className="table table-bordered bg-white">
+        <tbody>
+          <tr>
+            <td className="fw-bold">Min</td>
             <td>{stats?.min.toFixed(PRECISION)}</td>
+          </tr>
+          {Object.entries(stats?.percentiles).map(([k, v], i) => (
+            <tr key={i}>
+              <td className="fw-bold">P{+k * 100}</td>
+              <td>{v.toFixed(PRECISION)}</td>
+            </tr>
+          ))}
+          <tr>
+            <td className="fw-bold">Max</td>
             <td>{stats?.max.toFixed(PRECISION)}</td>
           </tr>
         </tbody>
       </table>
 
-      <table className="table table-bordered table-striped bg-white">
+      <table className="table table-bordered bg-white">
         <thead>
           <tr>
-            <th>Percentile</th>
-            <th>Response Time (ms)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(stats?.percentiles).map(([k, v], i) => (
-            <tr key={i}>
-              <td>{k}</td>
-              <td>{v.toFixed(PRECISION)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <table className="table table-bordered table-striped bg-white">
-        <thead>
-          <tr>
-            <th>Response Times (ms)</th>
+            <th>Response Time</th>
           </tr>
         </thead>
         <tbody>
