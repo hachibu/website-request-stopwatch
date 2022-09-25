@@ -147,7 +147,7 @@ function App() {
         </button>
       </div>
 
-      <div className="border mb-3 bg-white">
+      <div className="border mb-3 bg-white overflow-hidden">
         <Plot
           className="w-100"
           data={plot.data}
