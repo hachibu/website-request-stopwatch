@@ -5,11 +5,6 @@ import { Stats, newStats, calculateStats } from "./Stats";
 
 const PRECISION = 2;
 
-interface MyPlot {
-  data: Data[];
-  layout: Partial<Layout>;
-}
-
 function App() {
   const urlSearchParams = new URLSearchParams(window?.location?.search);
   const urlParam = urlSearchParams.get("url");
@@ -19,26 +14,6 @@ function App() {
   const [stats, setStats] = useState<Stats>(newStats());
   const [progress, setProgress] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
-
-  function getPlot(): MyPlot {
-    return {
-      data: [
-        {
-          x: responseTimes,
-          type: "histogram",
-        },
-      ],
-      layout: {
-        title: `Response Time Distribution<br>(${url})`,
-        xaxis: {
-          title: "Response Time (ms)",
-        },
-        yaxis: {
-          title: "# of Requests",
-        },
-      },
-    };
-  }
 
   function resetState() {
     setResponseTimes(() => []);
@@ -108,7 +83,23 @@ function App() {
     setDisabled(() => false);
   }
 
-  const plot = getPlot();
+  const plot: { data: Data[]; layout: Partial<Layout> } = {
+    data: [
+      {
+        x: responseTimes,
+        type: "histogram",
+      },
+    ],
+    layout: {
+      title: `Response Time Distribution<br>(${url})`,
+      xaxis: {
+        title: "Response Time (ms)",
+      },
+      yaxis: {
+        title: "# of Requests",
+      },
+    },
+  };
 
   return (
     <div className="col-12 col-md-8">
