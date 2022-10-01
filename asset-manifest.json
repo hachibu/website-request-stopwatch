@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/website-request-stopwatch/static/js/main.bfdbdb11.js",
+    "main.js": "/website-request-stopwatch/static/js/main.c35ce13d.js",
     "index.html": "/website-request-stopwatch/index.html",
-    "main.bfdbdb11.js.map": "/website-request-stopwatch/static/js/main.bfdbdb11.js.map"
+    "main.c35ce13d.js.map": "/website-request-stopwatch/static/js/main.c35ce13d.js.map"
   },
   "entrypoints": [
-    "static/js/main.bfdbdb11.js"
+    "static/js/main.c35ce13d.js"
   ]
 }
