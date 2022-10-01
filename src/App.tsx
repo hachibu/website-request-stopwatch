@@ -88,12 +88,21 @@ function App() {
     setDisabled(() => false);
   };
 
-  const plot: { data: Data[]; layout: Partial<Layout> } = useMemo(() => {
-    return {
+  interface MyPlot {
+    data: Data[];
+    layout: Partial<Layout>;
+  }
+
+  const plot: MyPlot = useMemo(() => {
+    const config: MyPlot = {
       data: [
         {
           x: responseTimes,
           type: "histogram",
+          marker: {
+            color: "#0d6efd",
+            opacity: 0.5,
+          },
         },
       ],
       layout: {
@@ -104,9 +113,44 @@ function App() {
         yaxis: {
           title: "# of Requests",
         },
+        shapes: [],
       },
     };
-  }, [responseTimes, url]);
+
+    if (config.layout.shapes) {
+      if (responseTimeStats.mean > 0) {
+        config.layout.shapes.push({
+          type: "line",
+          x0: responseTimeStats.mean,
+          x1: responseTimeStats.mean,
+          y0: 0,
+          y1: 1,
+          yref: "paper",
+          line: {
+            color: "#198754",
+            width: 1,
+          },
+        });
+      }
+
+      if (responseTimeStats.median > 0) {
+        config.layout.shapes.push({
+          type: "line",
+          x0: responseTimeStats.median,
+          x1: responseTimeStats.median,
+          y0: 0,
+          y1: 1,
+          yref: "paper",
+          line: {
+            color: "#d63384",
+            width: 1,
+          },
+        });
+      }
+    }
+
+    return config;
+  }, [responseTimes, responseTimeStats, url]);
 
   return (
     <div className="col-12 col-md-8">
@@ -160,16 +204,20 @@ function App() {
         <thead>
           <tr>
             <th>Requests Completed</th>
-            <th>Mean</th>
-            <th>Median</th>
+            <th>
+              Median (<span className="text-danger">—</span>)
+            </th>
+            <th>
+              Mean (<span className="text-success">—</span>)
+            </th>
             <th>Std Dev</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{responseTimeStats?.size}</td>
-            <td>{responseTimeStats?.mean.toFixed(PRECISION)}</td>
             <td>{responseTimeStats?.median.toFixed(PRECISION)}</td>
+            <td>{responseTimeStats?.mean.toFixed(PRECISION)}</td>
             <td>{responseTimeStats?.stdev.toFixed(PRECISION)}</td>
           </tr>
         </tbody>
