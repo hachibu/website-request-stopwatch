@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent, ChangeEvent, useMemo } from "react";
-import { Data, Layout } from "plotly.js";
 import Plot from "react-plotly.js";
+import { createPlotConfig } from "./ResponseTimePlot";
 import {
   ResponseTimeStats,
   calculateResponseTimeStats,
@@ -88,69 +88,15 @@ function App() {
     setDisabled(() => false);
   };
 
-  interface MyPlot {
-    data: Data[];
-    layout: Partial<Layout>;
-  }
-
-  const plot: MyPlot = useMemo(() => {
-    const config: MyPlot = {
-      data: [
-        {
-          x: responseTimes,
-          type: "histogram",
-          marker: {
-            color: "#0d6efd",
-            opacity: 0.5,
-          },
-        },
-      ],
-      layout: {
-        title: `Response Time Distribution<br>(${url})`,
-        xaxis: {
-          title: "Response Time (ms)",
-        },
-        yaxis: {
-          title: "# of Requests",
-        },
-        shapes: [],
-      },
-    };
-
-    if (config.layout.shapes) {
-      if (responseTimeStats.mean > 0) {
-        config.layout.shapes.push({
-          type: "line",
-          x0: responseTimeStats.mean,
-          x1: responseTimeStats.mean,
-          y0: 0,
-          y1: 1,
-          yref: "paper",
-          line: {
-            color: "#198754",
-            width: 1,
-          },
-        });
-      }
-
-      if (responseTimeStats.median > 0) {
-        config.layout.shapes.push({
-          type: "line",
-          x0: responseTimeStats.median,
-          x1: responseTimeStats.median,
-          y0: 0,
-          y1: 1,
-          yref: "paper",
-          line: {
-            color: "#d63384",
-            width: 1,
-          },
-        });
-      }
-    }
-
-    return config;
-  }, [responseTimes, responseTimeStats, url]);
+  const plotConfig = useMemo(
+    () =>
+      createPlotConfig({
+        responseTimes,
+        responseTimeStats,
+        url,
+      }),
+    [responseTimes, responseTimeStats, url]
+  );
 
   return (
     <div className="col-12 col-md-8">
@@ -194,8 +140,8 @@ function App() {
       <div className="border mb-3 bg-white overflow-hidden">
         <Plot
           className="w-100"
-          data={plot.data}
-          layout={plot.layout}
+          data={plotConfig.data}
+          layout={plotConfig.layout}
           useResizeHandler={true}
         ></Plot>
       </div>
