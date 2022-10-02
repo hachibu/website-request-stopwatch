@@ -1,4 +1,4 @@
-import { Data, Layout, Shape } from "plotly.js";
+import { Data, Dash, Layout, Shape } from "plotly.js";
 import { ResponseTimeStats } from "./ResponseTimeStats";
 
 interface PlotConfig {
@@ -20,16 +20,15 @@ export function createPlotConfig(params: PlotParams): PlotConfig {
 }
 
 function createData({ responseTimes }: PlotParams): Data[] {
-  return [
-    {
-      x: responseTimes,
-      type: "histogram",
-      marker: {
-        color: "#0d6efd",
-        opacity: 0.5,
-      },
+  const data: Data = {
+    x: responseTimes,
+    type: "histogram",
+    marker: {
+      color: "#0d6efd",
+      opacity: 0.5,
     },
-  ];
+  };
+  return [data];
 }
 
 function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
@@ -38,6 +37,10 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
     xaxis: {
       title: "Response Time (ms)",
     },
+    xaxis2: {
+      title: "Std Dev",
+      side: "top",
+    },
     yaxis: {
       title: "# of Requests",
     },
@@ -45,10 +48,15 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
   };
 
   if (layout.shapes && responseTimeStats.size > 0) {
+    const { mean, median } = responseTimeStats;
     layout.shapes.push(
-      createShapeLine({ x: responseTimeStats.mean, color: "#198754" }),
-      createShapeLine({ x: responseTimeStats.median, color: "#d63384" })
+      createShapeLine({ x: median, color: "#d63384" }),
+      createShapeLine({ x: mean, color: "#198754" })
     );
+
+    // for (let x of getStdDevData(responseTimeStats)) {
+    //   layout.shapes.push(createShapeLine({ x, color: "#6c757d", dash: "dot" }))
+    // }
   }
 
   return layout;
@@ -57,9 +65,11 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
 function createShapeLine({
   x,
   color,
+  dash = "solid",
 }: {
   x: number;
-  color: string;
+  color?: string;
+  dash?: Dash;
 }): Partial<Shape> {
   return {
     type: "line",
@@ -68,9 +78,25 @@ function createShapeLine({
     y0: 0,
     y1: 1,
     yref: "paper",
+    opacity: 0.9,
     line: {
       color,
       width: 1,
+      dash,
     },
   };
+}
+
+function getStdDevData(responseTimeStats: ResponseTimeStats): number[] {
+  const data: number[] = [];
+  const { mean, min, max, stdev } = responseTimeStats;
+  const n = 50;
+  for (let i = -n; i < n; i++) {
+    if (i === 0) continue;
+    const x = mean + stdev * i;
+    if (x > min - stdev && x < max + stdev) {
+      data.push(x);
+    }
+  }
+  return data;
 }
