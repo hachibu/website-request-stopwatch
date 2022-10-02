@@ -142,7 +142,7 @@ function App() {
           className="w-100"
           data={plotConfig.data}
           layout={plotConfig.layout}
-          useResizeHandler={true}
+          useResizeHandler={plotConfig.useResizeHandler}
         ></Plot>
       </div>
 

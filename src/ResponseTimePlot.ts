@@ -4,6 +4,7 @@ import { ResponseTimeStats } from "./ResponseTimeStats";
 interface PlotConfig {
   data: Data[];
   layout: Partial<Layout>;
+  useResizeHandler: boolean;
 }
 
 interface PlotParams {
@@ -16,6 +17,7 @@ export function createPlotConfig(params: PlotParams): PlotConfig {
   return {
     data: createData(params),
     layout: createLayout(params),
+    useResizeHandler: true,
   };
 }
 
@@ -61,6 +63,7 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
   return layout;
 }
 
+// eslint-disable-line @typescript-eslint/no-unused-vars
 function createShapeLine({
   x,
   color,
@@ -86,6 +89,7 @@ function createShapeLine({
   };
 }
 
+// eslint-disable-line @typescript-eslint/no-unused-vars
 function getStdDevData(responseTimeStats: ResponseTimeStats): number[] {
   const data: number[] = [];
   const { mean, min, max, stdev } = responseTimeStats;
