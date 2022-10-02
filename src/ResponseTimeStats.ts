@@ -14,13 +14,13 @@ export function calculateResponseTimeStats(
   data: number[] = []
 ): ResponseTimeStats {
   const callOrDefaultZero = (f: Function, data: number[], ...args: any[]) =>
-    data.length === 0 ? 0 : f(data, ...args);
+    data.length > 1 ? f(data, ...args) : 0;
 
   return {
     size: data.length,
     mean: callOrDefaultZero(ss.mean, data),
     median: callOrDefaultZero(ss.median, data),
-    stdev: callOrDefaultZero(ss.standardDeviation, data),
+    stdev: callOrDefaultZero(ss.sampleStandardDeviation, data),
     min: callOrDefaultZero(ss.min, data),
     max: callOrDefaultZero(ss.max, data),
     percentiles: {
