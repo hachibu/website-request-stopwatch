@@ -25,7 +25,7 @@ function createData({ responseTimes }: PlotParams): Data[] {
     type: "histogram",
     marker: {
       color: "#0d6efd",
-      opacity: 0.5,
+      opacity: 0.8,
     },
   };
   return [data];
@@ -47,17 +47,16 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
     shapes: [],
   };
 
-  if (layout.shapes && responseTimeStats.size > 0) {
-    const { mean, median } = responseTimeStats;
-    layout.shapes.push(
-      createShapeLine({ x: median, color: "#d63384" }),
-      createShapeLine({ x: mean, color: "#198754" })
-    );
-
-    // for (let x of getStdDevData(responseTimeStats)) {
-    //   layout.shapes.push(createShapeLine({ x, color: "#6c757d", dash: "dot" }))
-    // }
-  }
+  // if (layout.shapes && responseTimeStats.size > 0) {
+  //   const { mean, median } = responseTimeStats;
+  //   layout.shapes.push(
+  //     createShapeLine({ x: median, color: "#d63384" }),
+  //     createShapeLine({ x: mean, color: "#198754" })
+  //   );
+  //   for (let x of getStdDevData(responseTimeStats)) {
+  //     layout.shapes.push(createShapeLine({ x, color: "#6c757d", dash: "dot" }))
+  //   }
+  // }
 
   return layout;
 }

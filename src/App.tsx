@@ -150,12 +150,8 @@ function App() {
         <thead>
           <tr>
             <th>Requests Completed</th>
-            <th>
-              Median (<span className="text-danger">—</span>)
-            </th>
-            <th>
-              Mean (<span className="text-success">—</span>)
-            </th>
+            <th>Median</th>
+            <th>Mean</th>
             <th>Std Dev</th>
           </tr>
         </thead>
