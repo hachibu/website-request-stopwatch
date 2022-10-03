@@ -39,10 +39,6 @@ function createLayout({ responseTimeStats, url }: PlotParams): Partial<Layout> {
     xaxis: {
       title: "Response Time (ms)",
     },
-    xaxis2: {
-      title: "Std Dev",
-      side: "top",
-    },
     yaxis: {
       title: "# of Requests",
     },
